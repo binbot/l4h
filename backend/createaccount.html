@@ -1,0 +1,54 @@
+<!doctype html>
+<?php
+ob_start();
+include "PHP/UserClass.php";
+$USER = new UserClass();
+if($USER->LoggedIn()){
+	// Let them stay. This time.
+} else{
+	header("Location: http://linux4hope.org/404");
+}
+?>
+<head>
+    <title>Create Account - Linux4Hope Panel</title>
+    <link rel="stylesheet" type="text/css" href="panel-style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Lato:300|Great+Vibes' rel='stylesheet' type='text/css'>
+</head>
+
+<body style="background: #9b59b6;">
+    <div id="nav">
+        <ul class="nav-left">
+            <li>Linux4Hope Panel</li>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="pending">Pending</a></li>
+            <li><a href="approved">Approved</a></li>
+            <li><a href="denied">Denied</a></li>
+            <li class="active"><a href="settings">Settings</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a href="PHP/logout.php">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="first"></div>
+    
+    <div class="container">
+        <div class="padding">
+            <h2>Create an Account</h2>
+            <p>You can create new user accounts for Linux4Hope members here. A password will be automatically generated.</p>
+            <form action="PHP/createuser.php" method="post">
+                <input type="password" name="FNAME" placeholder="First name" />
+                <input type="password" name="LNAME" placeholder="Last name" />
+                <input type="password" name="EMAIL" placeholder="Email" /><br><br>
+                <p>Which branch is this user a part of?</p>
+                <input type="radio" name="branch" value="1"> Manassas, Virginia<br>
+                <input type="radio" name="branch" value="2"> Richmond, Virginia<br>
+                <input type="radio" name="branch" value="3"> Harrisonburg, Virginia<br>
+                <input type="radio" name="branch" value="4"> Los Angeles, California<br><br>
+                <input type="submit" name="submituser" value="Create account" class="button" />
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

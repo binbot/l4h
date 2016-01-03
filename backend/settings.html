@@ -1,0 +1,50 @@
+<!doctype html>
+<?php
+ob_start();
+include "PHP/UserClass.php";
+$USER = new UserClass();
+if($USER->LoggedIn()){
+	// Let them stay. This time.
+} else{
+	header("Location: http://linux4hope.org/404");
+}
+?>
+<head>
+    <title>Settings - Linux4Hope Panel</title>
+    <link rel="stylesheet" type="text/css" href="panel-style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Lato:300|Great+Vibes' rel='stylesheet' type='text/css'>
+</head>
+
+<body style="background: #e74c3c;">
+    <div id="nav">
+        <ul class="nav-left">
+            <li>Linux4Hope Panel</li>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="pending">Pending</a></li>
+            <li><a href="approved">Approved</a></li>
+            <li><a href="denied">Denied</a></li>
+            <li class="active"><a href="settings">Settings</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a href="PHP/logout.php">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="first"></div>
+    
+    <div class="container">
+        <div class="padding">
+            <h2>Settings</h2>
+            <p>You can change your password here. If something is incorrect, nothing will happen.</p>
+            <form action="PHP/changepass.php" method="post">
+                <input type="hidden" value="<?php echo $_COOKIE['L4HUserid'];?>" name="ID"?>
+                <input type="password" name="password" placeholder="Current password" />
+                <input type="password" name="npassword" placeholder="New password" />
+                <input type="password" name="ncpassword" placeholder="Confirm password" />
+                <input type="submit" name="submituser" value="Change password" class="button" />
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

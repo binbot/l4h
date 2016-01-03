@@ -1,0 +1,145 @@
+<!doctype html>
+<?php
+ob_start();
+include "PHP/UserClass.php";
+$USER = new UserClass();
+if($USER->LoggedIn()){
+	// Let them stay. This time.
+} else{
+	header("Location: http://linux4hope.org/404");
+}
+require("PHP/dbclass.php");
+$db = new dbclass;
+?>
+<head>
+    <title>Viewing Application - Linux4Hope Panel</title>
+    <link rel="stylesheet" type="text/css" href="panel-style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Lato:300|Coming+Soon|Anton' rel='stylesheet' type='text/css'>
+</head>
+
+<body style="background: #e9e9e9;">
+    <div id="nav">
+        <ul class="nav-left">
+            <li>Linux4Hope Panel</li>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="pending">Pending</a></li>
+            <li><a href="approved">Approved</a></li>
+            <li><a href="denied">Denied</a></li>
+            <li><a href="settings">Settings</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a href="PHP/logout.php">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="first"></div>
+    
+        <?php
+        $appid  = mysqli_real_escape_string($db->cxn, $_GET['appid']);
+        $result = mysqli_query($db->cxn, "SELECT * FROM APPLICATIONS RIGHT JOIN APPLICANTS on APPLICATIONS.APPLICANT_ID = APPLICANTS.APPLICANT_ID WHERE APPLICATION_ID=$appid");
+        $row    = mysqli_fetch_assoc($result);
+        if (empty($row)) {
+            echo "<h2>Uh oh! This application ID is invalid.</h2>";
+        } else {
+            extract($row);
+            $status  = 0;
+            $result2 = mysqli_query($db->cxn, "Select * from PENDING_APPS where APP_ID=$appid");
+            $row2    = mysqli_fetch_assoc($result2);
+            if (empty($row2)) {
+                $result3 = mysqli_query($db->cxn, "Select * from DENIED_APPS where APP_ID=$appid");
+                $row3    = mysqli_fetch_assoc($result3);
+                if (empty($row3)) {
+                    $result4 = mysqli_query($db->cxn, "Select * from ACCEPTED_APPS where APP_ID=$appid");
+                    $row4    = mysqli_fetch_assoc($result4);
+                    if (!empty($row4)) {
+                        extract($row4);
+                        $status = 3;
+                    }
+                } else {
+                    $status = 2;
+                }
+            } else {
+                $status = 1;
+            }
+            if ($status == 0) {
+                die("We were unable to pull the status of this application.");
+            }
+            if ($WITHIN_TWO_YEARS) {
+                $WITHIN_TWO_YEARS = "Yes";
+            } else {
+                $WITHIN_TWO_YEARS = "No";
+            }
+            if ($HAS_WORKING_COMPUTER) {
+                $HAS_WORKING_COMPUTER = "Yes";
+            } else {
+                $HAS_WORKING_COMPUTER = "No";
+            }
+            if ($HAS_INTERNET_ACCESS) {
+                $HAS_INTERNET_ACCESS = "Yes";
+            } else {
+                $HAS_INTERNET_ACCESS = "No";
+            }
+            if ($CAN_POST_PHOTOS) {
+                $CAN_POST_PHOTOS = "Yes";
+            } else {
+                $CAN_POST_PHOTOS = "No";
+            }
+            echo "<div id=\"notebook-wrap\">";
+            switch ($status) {
+                case 1:
+                    echo "
+                        <div class=\"status\"><p>Pending</p></div>
+                        <div class=\"notebook-head\">
+                            <p><a href=\"PHP/manageapp.php?id=$appid&action=approve\">Approve</a> / <a href=\"PHP/manageapp.php?id=$appid&action=deny\">Deny</a></p>
+                        </div>";
+                    break;
+                case 2:
+                    echo "
+                        <div class=\"status\"><p>Denied</p></div>
+                        <div class=\"notebook-head\"></div>";
+                    break;
+                case 3:
+                    if ($DELIVERED) {
+                        echo "
+                            <div class=\"status\"><p>Delivered</p></div>
+                            <div class=\"notebook-head\"></div>";
+                    } else {
+                        //if its not delivered. 
+                        echo "
+                            <div class=\"status\"><p>Approved</p></div>
+                            <div class=\"notebook-head\">
+                                <p><a href=\"PHP/manageapp.php?id=$appid&action=delivered\">Mark as delivered</a> / <a href=\"PHP/manageapp.php?id=$appid&action=denyapprove\">Cancel application</a></p>
+                            </div>";
+                    }
+                    break;
+            }
+            $num = "(" . substr($PHONE, 0, 3) . ") " . substr($PHONE, 3, 3) . " - " . substr($PHONE, 6);
+            echo "
+                <div class=\"container notebook\">
+                            <div class=\"padding\">
+                                <p><span class=\"notebook-question\">Name</span>$AF_NAME $AL_NAME</p>
+                                <p><span class=\"notebook-question\">Email</span>$AEMAIL</p>
+                                <p><span class=\"notebook-question\">Phone</span>$num</p>
+                                <p><span class=\"notebook-question\">Address</span>$ADDRESS<br><br></p>
+                                <p><span class=\"notebook-question\">Which branch are you applying to?</span>$LOCATION<br><br></p>
+                                <p><span class=\"notebook-question\">Please elaborate on how a computer from us will help you with work, educational, or personal purposes. Also, please specify if you attend high school or college (if applicable).<br></span>$CP_WILL_HELP<br><br></p>
+                                <p><span class=\"notebook-question\">Will any family members living in your household be using the computer? If so, how would it benefit them?</span><br>$FAMILY_MEMBER_USE<br><br></p>
+                                <p><span class=\"notebook-question\">What is your average annual income?</span>$AINCOME<br><br></p>
+                                <p><span class=\"notebook-question\">Please check all that may apply to you. If a statement does not apply, then do not check the box.<br></span></p>
+                                <ul>
+                                    <li>[$WITHIN_TWO_YEARS] I have purchased electronics within the past two years.</li>
+                                    <li>[$HAS_WORKING_COMPUTER] I have a working computer in my home.</li>
+                                    <li>[$HAS_INTERNET_ACCESS] I have internet access in my home.</li>
+                                </ul><br><br>
+                                <p><span class=\"notebook-question\">Should you receive a computer, is it fine for us to post photos and your name on our website, www.linux4hope.org, as well as on social media, for promotional use?<br></span>$CAN_POST_PHOTOS<br><br></p>
+                            </div>
+                        </div>
+                    </div>";
+        }
+        ?>
+
+</body>
+<?php
+ob_flush();
+?>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<?php
+ob_start();
+include "PHP/UserClass.php";
+$USER = new UserClass();
+if($USER->LoggedIn()){
+	// Let them stay. This time.
+} else{
+	header("Location: http://linux4hope.org/404");
+}
+?>
+<head>
+    <title>Account Created - Linux4Hope Panel</title>
+    <link rel="stylesheet" type="text/css" href="panel-style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Lato:300|Great+Vibes' rel='stylesheet' type='text/css'>
+</head>
+
+<body style="background: #9b59b6;">
+    <div id="nav">
+        <ul class="nav-left">
+            <li>Linux4Hope Panel</li>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="pending">Pending</a></li>
+            <li><a href="approved">Approved</a></li>
+            <li><a href="denied">Denied</a></li>
+            <li class="active"><a href="settings">Settings</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a href="PHP/logout.php">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="first"></div>
+    
+    <div class="container">
+        <div class="padding">
+            <h2>Account Created</h2>
+            <p>The account has been created successfully! Please give the password below to whomever the account was made. It is recommended that they change the password upon logging in.</p>
+            <p class="message">
+                <?php
+                    if(!empty($_GET['pwd'])){
+                        echo $_GET['pwd'];
+                    }
+                ?>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

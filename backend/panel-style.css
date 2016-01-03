@@ -1,0 +1,322 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: #1abc9c;
+    color: #ffffff;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    width: 100%;
+    height: 100%;
+}
+
+*|* {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    line-height: 2.0;
+    margin-bottom: 15px;
+}
+
+a {
+    color: #1abc9c;
+    text-decoration: none;
+}
+
+h2 {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 2.0;
+}
+
+#nav {
+    background: #2d2d2d;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: #ffffff;
+    z-index: 99999;
+    border-bottom: 5px solid #ffffff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+.nav-left {
+    float: left;
+}
+
+.nav-right {
+    float: right;
+}
+
+#nav ul li {
+    float: left;
+    list-style-type: none;
+    padding: 0 15px;
+}
+
+#nav a {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.active {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.first {
+    height: 50px;
+}
+
+.container {
+    width: 1040px;
+    margin: 25px auto;
+    min-height: 200px;
+}
+
+.padding {
+    padding: 25px;
+}
+
+.marked {
+    background: #ffffff;
+    color: #1abc9c;
+    padding: 5px 15px;
+    border-radius: 25px;
+}
+
+table {
+    border: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table a {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
+
+.quarters td {
+    width: 25%;
+}
+
+tr:nth-child(2n+3) {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+td {
+    padding: 15px 7px;
+}
+
+.header {
+    background: #ffffff;
+    color: #1abc9c;
+    text-align: center;
+    border-bottom: 5px solid #138d75;
+}
+
+.message-highlight {
+    color: #ffffff;
+}
+
+.message {
+    padding: 25px;
+    margin: 7px 0;
+    color: #ffffff;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+}
+
+.message p {
+    margin-bottom: 0;
+}
+
+#notebook-wrap {
+    position: relative;
+    width: 1040px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+.notebook {
+    background: #fff;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#8ebede), color-stop(5%, #fff)) 0 4px;
+    background: -webkit-linear-gradient(top, #8ebede 0%, #fff 5%) 0 4px;
+    background: -moz-linear-gradient(top, #8ebede 0%, #fff 5%) 0 4px;
+    background: -ms-linear-gradient(top, #8ebede 0%, #fff 5%) 0 4px;
+    background: linear-gradient(top, #8ebede 0%, #fff 5%) 0 4px;
+    -webkit-background-size: 100% 40px;
+    -moz-background-size: 100% 40px;
+    -ms-background-size: 100% 40px;
+    background-size: 100% 40px;
+    position: relative;
+    margin-top: 0;
+    overflow: hidden;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; 
+}
+
+.notebook::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    top: -5px;
+    left: 50px;
+    bottom: -5px;
+    border: 1px solid #ed948a; 
+}
+
+.notebook p {
+    line-height: 40px;
+    color: #0d0d0d;
+    font-family: 'Coming Soon', cursive;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.notebook .padding {
+    padding: 7px 25px 25px 75px;
+}
+
+.notebook ul li {
+    list-style-type: disc;
+    margin: 0 0 0 50px;
+    padding: 0;
+    line-height: 40px;
+    font-family: 'Coming Soon', cursive;
+    font-size: 18px;
+    color: #0d0d0d;
+}
+
+.notebook-head {
+    background: #ffffff;
+    width: 1040px;
+    height: 140px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 75px;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #cdcdcd;
+}
+
+.notebook-head p {
+    line-height: 140px;
+    text-indent: 50px;
+}
+
+.notebook-head a {
+    margin: 0 25px;
+}
+
+.notebook-head::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    top: -5px;
+    left: 50px;
+    bottom: -5px;
+    border: 1px solid #ed948a;
+}
+
+.notebook-question {
+    color: #7d7d7d;
+    margin-right: 25px;
+    display: inline-block;
+    min-width: 100px;
+}
+
+.status {
+    width: 300px;
+    height: 150px;
+    border: 5px double #0d0d0d;
+    border-radius: 15px;
+    -webkit-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+    transform: rotate(15deg);
+    color: #0d0d0d;
+    position: absolute;
+    top: 60px;
+    right: 35px;
+    z-index: 99;
+    font-family: 'Anton', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 48px;
+    text-align: center;
+}
+
+.status p {
+    line-height: 150px;
+}
+
+input[type=text], input[type=password] {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid transparent;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    width: 150px;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 25px;
+    color: #ffffff;
+    margin-right: 25px;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-property: border;
+    -moz-transition-property: border;
+    transition-property: border;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 10px 25px;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: #2d2d2d;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=submit]:focus {
+    outline: none;
+    border: 1px solid #ffffff;
+}
+
+input[type=radio] {
+    margin: 10px;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: rgba(255, 255, 255, 0.5);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: rgba(255, 255, 255, 0.5);
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: rgba(255, 255, 255, 0.5);
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: rgba(255, 255, 255, 0.5);
+}

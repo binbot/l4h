@@ -1,0 +1,75 @@
+<!doctype html>
+<?php
+ob_start();
+include "PHP/UserClass.php";
+$USER = new UserClass();
+if($USER->LoggedIn()){
+	// Let them stay. This time.
+} else{
+	header("Location: http://linux4hope.org/404");
+}
+?>
+<head>
+    <title>Pending Applications - Linux4Hope Panel</title>
+    <link rel="stylesheet" type="text/css" href="panel-style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Lato:300|Great+Vibes' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div id="nav">
+        <ul class="nav-left">
+            <li>Linux4Hope Panel</li>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li class="active"><a href="pending">Pending</a></li>
+            <li><a href="approved">Approved</a></li>
+            <li><a href="denied">Denied</a></li>
+            <li><a href="settings">Settings</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a href="PHP/logout.php">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="first"></div>
+    
+    <div class="container">
+        <div class="padding">
+            <h2>Pending Applications</h2>
+            <?php
+                require("PHP/dbclass.php");
+                $dbobj = new dbclass;
+                $query = "Select p.APP_ID,a.AF_NAME,a.AL_NAME,a.AEMAIL,ap.LOCATION from PENDING_APPS as p LEFT JOIN APPLICANTS as a on p.APPLICANT_ID=a.APPLICANT_ID LEFT JOIN APPLICATIONS as ap on p.APP_ID=ap.APPLICATION_ID";
+                $result = mysqli_query($dbobj->cxn,$query) or die ("Database query error.");
+        
+                if(mysql_num_rows($result) < 1){
+                    // If no rows were pulled
+                    echo "<div class=\"message\"><p>There is nothing to display here!</p></div>";
+                } else {
+                    echo "
+                        <table class=\"quarters\">
+                            <tr class=\"header\">
+                                <td>Name</td>
+                                <td>Branch</td>
+                                <td>Email</td>
+                                <td>Link</td>
+                            </tr>
+                    ";
+                    while($row = mysqli_fetch_assoc($result)){
+                        extract($row);
+                        echo "
+                            <tr>
+                                <td>$AF_NAME $AL_NAME</td>
+                                <td>$LOCATION</td>
+                                <td>$AEMAIL</td>
+                                <td><a href=\"viewapplication?appid=$APP_ID\">View application</a></td>
+                            </tr>
+                        ";
+                    }
+                    echo "</table>";
+                }
+			?>
+        </div>
+    </div>
+
+</body>
+</html>

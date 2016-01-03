@@ -1,0 +1,45 @@
+<!doctype html>
+<?php
+ob_start();
+include "PHP/UserClass.php";
+$USER = new UserClass();
+if($USER->LoggedIn()){
+	// Let them stay. This time.
+} else{
+	header("Location: http://linux4hope.org/404");
+}
+?>
+<head>
+    <title>Dashboard - Linux4Hope Panel</title>
+    <link rel="stylesheet" type="text/css" href="panel-style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Lato:300|Great+Vibes' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div id="nav">
+        <ul class="nav-left">
+            <li>Linux4Hope Panel</li>
+            <li class="active"><a href="dashboard">Dashboard</a></li>
+            <li><a href="pending">Pending</a></li>
+            <li><a href="approved">Approved</a></li>
+            <li><a href="denied">Denied</a></li>
+            <li><a href="settings">Settings</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a href="PHP/logout.php">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="first"></div>
+    
+    <div class="container">
+        <div class="padding">
+            <h2>Welcome</h2>
+            <p>What a great day to look at applications! Right?</p>
+            <p>Be sure that you or a fellow team member checks the applications for your branch frequently. If an application meets your criteria, mark it as <span class="marked">Accepted</span>. An email will be sent to the applicant automatically. Marking applications as <span class="marked">Denied</span> works on the same principle. It is a good idea to call the applicant by phone if you do not receive further correspondence through email.</p>
+            <p>When you deliver a computer to an accepted applicant, please mark it as <span class="marked">Delivered</span>. Thanks!</p>
+        </div>
+    </div>
+
+</body>
+</html>
